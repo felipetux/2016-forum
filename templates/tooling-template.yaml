@@ -11,7 +11,7 @@ metadata:
     iconClass: icon-jenkins
     tags: jenkins,gogs,nexus
   name: tooling
-message: Tooling infrastructure composed of Jenkins, Gogs and services has been created in your project. Gogs username/password are ${GOGS_USERNAME}/${GOGS_PASSWORD}.  Instructions on how to use it are https://github.com/latem-tech-office/2016-forum.git
+message: Tooling infrastructure composed of Jenkins, Gogs and services has been created in your project. Gogs username/password are ${GOGS_USERNAME}/${GOGS_PASSWORD}.  Instructions on how to use it are https://github.com/felipetux/2016-forum.git
 parameters:
 - name: "GOGS_URL"
   displayName: Gogs's URL

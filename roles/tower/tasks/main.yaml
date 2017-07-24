@@ -150,7 +150,7 @@
      - reconfigtower
          
 - name: Define Ansible Tower URL
-  set_fact: ansible_tower_url='https://tower.{{ ansibletower_namespace }}.svc.cluster.local:{{ tower_port }}'
+  set_fact: ansible_tower_url='https://tower.{{ ansibletower_namespace }}.cloudapps.example.com:{{ tower_port }}'
   tags: 
      - tower
      - configtower

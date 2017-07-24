@@ -11,7 +11,7 @@ parameters:
 - name: "GOGS_URL"
   displayName: Gogs's URL
   description: "Gogs's Internal URL to be used into other applications, such as Jenkins or Nexus"
-  value: http://gogs.${CLOUDAPPS_NAMESPACE}.svc.cluster.local:3000
+  value: http://gogs.${CLOUDAPPS_NAMESPACE}.cloudapps.example.com:3000
   required: true
 - name: GOGS_USERNAME
   displayName: Gogs Username
@@ -44,7 +44,7 @@ objects:
                 sh "mvn clean test -f discountRules/pom.xml"
 
            stage 'Deploy'
-                def ocCmd = "/usr/bin/oc --token=`cat /var/run/secrets/kubernetes.io/serviceaccount/token` --server=https://openshift.default.svc.cluster.local --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                def ocCmd = "/usr/bin/oc --token=`cat /var/run/secrets/kubernetes.io/serviceaccount/token` --server=https://master1.example.com:8443 --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt"
                 sh "${ocCmd} start-build bc/brms -n ${MICROSERVICES_NAMESPACE} --follow"
           }
       type: JenkinsPipeline

@@ -15,10 +15,10 @@
        ignore_errors: True
 
      - name: Git clone the content from BRMS Project into {{ ':' }} {{ directory_businesscentral }}
-       command: git clone http://gogs.tooling.svc.cluster.local:3000/demo/brms.git --bare {{ directory_businesscentral }}
+       command: git clone http://gogs.tooling.cloudapps.example.com:3000/demo/brms.git --bare {{ directory_businesscentral }}
 
-     - name: Setting the Origin into Git http://{{ username }}:{{ password }}@gogs.{{ tooling_namespace }}.svc.cluster.local:3000/{{ username }}/brms.git
-       shell: pushd {{ directory_businesscentral }}; git remote set-url origin 'http://{{ username }}:{{ password }}@gogs.{{ tooling_namespace }}.svc.cluster.local:3000/{{ username }}/brms.git'; popd
+     - name: Setting the Origin into Git http://{{ username }}:{{ password }}@gogs.{{ tooling_namespace }}.cloudapps.example.com:3000/{{ username }}/brms.git
+       shell: pushd {{ directory_businesscentral }}; git remote set-url origin 'http://{{ username }}:{{ password }}@gogs.{{ tooling_namespace }}.cloudapps.example.com:3000/{{ username }}/brms.git'; popd
 
      - name: Generating content for post-commit
        copy: dest={{ directory_businesscentral }}/hooks/post-commit content="#!/bin/sh\ngit push origin master" mode="u+x"

@@ -13,8 +13,8 @@
      - microservices
 
 - name: Define Gogs's and Nexus URL 
-  set_fact: gogs_url="http{{ ':' }}//gogs.{{ tooling_namespace }}.svc.cluster.local{{ ':' }}{{ gogs_port.stdout }}"
-            nexus_url="http{{ ':' }}//nexus.{{ tooling_namespace }}.svc.cluster.local{{ ':' }}{{ nexus_port.stdout }}"
+  set_fact: gogs_url="http{{ ':' }}//gogs.{{ tooling_namespace }}.cloudapps.example.com{{ ':' }}{{ gogs_port.stdout }}"
+            nexus_url="http{{ ':' }}//nexus.{{ tooling_namespace }}.cloudapps.example.com{{ ':' }}{{ nexus_port.stdout }}"
   tags: 
      - microservices
 
