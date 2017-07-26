@@ -85,21 +85,21 @@
      - cloudforms                 
 
 - name: Define CloudForms URL
-  set_fact: cloudforms_url='cloudforms.{{ cloudforms_namespace }}.cloudapps.example.com:{{ cloudforms_port.stdout }}'
+  set_fact: cloudforms_url=cloudforms.cloudapps.example.com:443
   tags: 
      - configcloudforms
      - cloudforms
      - cloudforms_tower
                   
 - name: Define CloudForms FULL URL
-  set_fact: cloudforms_full_url='{{ cloudforms_http_type }}{{ ':' }}//{{ cloudforms_url }}'
+  set_fact: cloudforms_full_url=https://cloudforms.cloudapps.example.com:443
   tags:
      - configcloudforms
      - cloudforms
      - cloudforms_tower
                   
 - name: Wait for CloudForms to be up{{ ':' }} {{ cloudforms_full_url }}
-  uri: url='{{ cloudforms_full_url }}' validate_certs=no status_code=200 
+  uri: url=https://cloudforms.cloudapps.example.com:443 validate_certs=no status_code=200 
   register: cloudforms_wait
   until: cloudforms_wait.status == 200
   retries: 200
@@ -187,7 +187,7 @@
     password: "{{ cloudforms_password }}"
     force_basic_auth: yes
     status_code: 200
-    body: '{"type":"ManageIQ::Providers::OpenshiftEnterprise::ContainerManager","name":"OpenShift 3.4 Container Platform","connection_configurations" : [{"endpoint": {"role": "default","hostname":"openshift.default.cloudapps.example.com","port":"443"},"authentication": {"role": "bearer","auth_key": "{{ management_infra_token.stdout }}"}},{"endpoint": {"role": "hawkular","hostname":"hawkular-metrics.openshift-infra.cloudapps.example.com","port": "443"},"authentication": {"role": "hawkular","auth_key": "{{ management_infra_token.stdout }}"}}]}'
+    body: '{"type":"ManageIQ::Providers::OpenshiftEnterprise::ContainerManager","name":"OpenShift 3.5 Container Platform","connection_configurations" : [{"endpoint": {"role": "default","hostname":"master1.example.com","port":"8443"},"authentication": {"role": "bearer","auth_key": "{{ management_infra_token.stdout }}"}},{"endpoint": {"role": "hawkular","hostname":"hawkular-metrics.cloudapps.example.com","port": "443"},"authentication": {"role": "hawkular","auth_key": "{{ management_infra_token.stdout }}"}}]}'
   tags:
        - cloudforms
        - configcloudforms
@@ -205,7 +205,7 @@
     password: "{{ cloudforms_password }}"
     force_basic_auth: yes
     status_code: 200
-    body: '{"type":"ManageIQ::Providers::AnsibleTower::Provider","name":"Ansible Tower 3","url":"http://towerweb.ansible-tower.cloudapps.example.com/api/v1","credentials": {"userid":"admin","password":"password"}}'
+    body: '{"type":"ManageIQ::Providers::AnsibleTower::Provider","name":"Ansible Tower 3","url":"https://tower.cloudapps.example.com/api/v1","credentials": {"userid":"admin","password":"password"}}'
   tags:
        - cloudforms
        - configcloudforms

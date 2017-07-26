@@ -72,7 +72,7 @@ cloudforms_http_type: https
 ansibletower_namespace: ansible-tower
 #ansibletower_dockerimage: rcalvaga/rhel7_ansible_tower
 ansibletower_dockerimage: jbla/ansible-tower
-ansibletower_license_file: license_b4451138a0004212ac8476cc275a08e9.txt
+ansibletower_license_file: license_625122c87c0f4113be85124c65ce1559.txt
 ansibletower_username: admin
 ansibletower_password: password
 ansibletower_web_service: towerweb

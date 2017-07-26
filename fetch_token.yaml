@@ -6,12 +6,12 @@
   tasks:
      - name: Requesting authorization from OpenShift
        uri:
-               url: https://master1.example.com:8443/oauth/authorize?response_type=token&client_id=openshift-challenging-client
+         url: https://master1.example.com:8443/oauth/authorize?response_type=token&client_id=openshift-challenging-client
          validate_certs: False
          follow_redirects: none
          method: GET
-         user: "{{ username }}"
-         password: "{{ password }}"
+         user: "admin"
+         password: "r3dh4t1!"
          force_basic_auth: True
          status_code: 302
        register: authorization_request

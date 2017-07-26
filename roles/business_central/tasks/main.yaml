@@ -28,7 +28,7 @@
      - gogs
 
 - name: Define Gogs's
-  set_fact: gogs_url="gogs.{{ tooling_namespace }}.cloudapps.example.com{{ ':' }}{{ gogs_port.stdout }}"
+  set_fact: gogs_url="gogs.cloudapps.example.com{{ ':' }}80"
   tags:
      - business_central
      - gogs
@@ -157,7 +157,7 @@
      - business_central
 
 - name: Define Business Central's URL
-  set_fact: business_central_address="http{{ ':' }}//business-central.{{ businesscentral_namespace }}.cloudapps.example.com{{ ':' }}{{ business_central_port.stdout }}"
+  set_fact: business_central_address="http{{ ':' }}//business-central.cloudapps.example.com{{ ':' }}80"
   tags:
      - business_central
 

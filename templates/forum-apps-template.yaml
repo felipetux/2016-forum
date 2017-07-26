@@ -15,12 +15,12 @@ parameters:
 - name: "GOGS_URL"
   displayName: Gogs URL
   description: "Gogs is a Git Repository Server where it contains all the source code"
-  value: http://gogs.tooling.cloudapps.example.com:3000
+  value: http://gogs.cloudapps.example.com
   required: true
 - name: "NEXUS_URL"
   displayName: Nexus URL
   description: "Nexus is a Artifact Repository, which serves other applications during compilation"
-  value: http://nexus.tooling.cloudapps.example.com:8081
+  value: http://nexus.cloudapps.example.com
   required: true
 - name: "REPOSITORY_USER"
   displayName: Repository User

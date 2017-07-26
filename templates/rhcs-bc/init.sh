@@ -74,7 +74,7 @@ echo "OpenShift commandline tooling is installed..."
 echo 
 echo "Logging in to OpenShift as $OPENSHIFT_USER..."
 echo
-oc login 10.1.2.2:8443 --password=$OPENSHIFT_PWD --username=$OPENSHIFT_USER
+oc login https://master1.example.com:8443 --password=r3dh4t1! --username=admin
 
 
 if [ $? -ne 0 ]; then
@@ -138,7 +138,7 @@ fi
 echo
 echo "Creating an externally facing route by exposing a service..."
 echo
-oc expose service rhcs-coolstore-demo --hostname=rhcs-coolstore-demo.10.1.2.2.xip.io
+oc expose service rhcs-coolstore-demo --hostname=rhcs-coolstore-demo.cloudapps.example.com
 
 if [ $? -ne 0 ]; then
 	echo

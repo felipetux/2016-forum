@@ -16,7 +16,7 @@ parameters:
 - name: "GOGS_URL"
   displayName: Gogs's URL
   description: "Gogs's Internal URL to be used into other applications, such as Jenkins or Nexus"
-  value: http://gogs.${CLOUDAPPS_NAMESPACE}.svc.cluster.local:3000
+  value: http://gogs.cloudapps.example.com
   required: true
 - name: "MICROSERVICES_NAMESPACE"
   displayName: MicroServices Namespace

@@ -46,7 +46,7 @@
      - rhmap_config
      - rhmap
 
-- set_fact: rhmap_url={{ frontend_url.stdout }}
+- set_fact: rhmap_url=https://rhmap.cloudapps.example.com
   tags:
      - rhmap_config
      - rhmap
@@ -81,7 +81,7 @@
      - rhmap
 
 - name: Set RHMAP Target
-  command: fhc target {{ rhmap_url }}
+  command: fhc target https://rhmap.cloudapps.example.com
   tags:
      - rhmap_config
      - rhmap
@@ -128,18 +128,17 @@
      - rhmap
      - rhmap_config_mbaas
 
+
 - name: Requesting authorization from OpenShift in order to obtain a Token
   uri:
     url: https://master1.example.com:8443/oauth/authorize?response_type=token&client_id=openshift-challenging-client
     validate_certs: False
     follow_redirects: none
     method: GET
-    user: "{{ username }}"
-    password: "{{ password }}"
+    user: "admin"
+    password: "r3dh4t1!"
     force_basic_auth: True
     status_code: 302
-    headers:
-      X-CSRF-Token: "1"
   register: authorization_request
   tags:
      - rhmap_config

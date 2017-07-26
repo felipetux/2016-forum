@@ -11,7 +11,7 @@ parameters:
 - name: "GOGS_URL"
   displayName: Gogs's URL
   description: "Gogs's Internal URL to be used into other applications, such as Jenkins or Nexus"
-  value: http://gogs.${CLOUDAPPS_NAMESPACE}.cloudapps.example.com:3000
+  value: http://gogs.cloudapps.example.com
   required: true
 - name: GOGS_USERNAME
   displayName: Gogs Username

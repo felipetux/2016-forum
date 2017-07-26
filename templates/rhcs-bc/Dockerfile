@@ -16,6 +16,8 @@ ENV EAP_VERSION_MINOR 4
 ENV EAP_VERSION_MICRO 0
 ENV EAP_VERSION_PATCH 7
 
+RUN cat /etc/resolv.conf
+
 # ADD Installation Files
 COPY support/installation-brms support/installation-eap support/installation-brms.variables support/installation-eap.variables installs/jboss-brms-$BRMS_VERSION_MAJOR.$BRMS_VERSION_MINOR.$BRMS_VERSION_MICRO.$BRMS_VERSION_PATCH-installer.jar installs/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar installs/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_PATCH-patch.zip /opt/jboss/
 

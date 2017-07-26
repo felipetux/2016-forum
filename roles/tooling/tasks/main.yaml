@@ -18,7 +18,7 @@
   tags:
      - tooling
 
-- set_fact: gogs_url="http{{ ':' }}//gogs.{{ tooling_namespace }}.cloudapps.example.com:3000"
+- set_fact: gogs_url="http{{ ':' }}//gogs.cloudapps.example.com"
   tags:
      - tooling
      - config_tooling
@@ -114,7 +114,7 @@
  
 - name: Installing Gogs for the very first time
   uri: method=POST HEADER_Content-type="application/x-www-form-urlencoded" url="{{ gogs_url }}/install"
-       body="db_type={{ "PostgreSQL" | urlencode }}&db_host={{ gogs_database_ip.stdout | urlencode }}%3A{{ gogs_database_port.stdout }}&db_user={{ gogs_database_username.stdout }}&db_passwd={{ gogs_database_password.stdout }}&db_name={{ gogs_database_name.stdout | urlencode }}&ssl_mode=disable&db_path=data%2Fgogs.db&app_name={{ "Gogs Go Git Service" | urlencode }}&repo_root_path={{ "/home/gogs/gogs-repositories" | urlencode }}&run_user=gogs&domain=localhost&ssh_port=22&http_port=3000&app_url={{ gogs_address | urlencode }}&log_root_path=%2Fopt%2Fgogs%2Flog&admin_name={{ username | urlencode }}&admin_passwd={{ password | urlencode }}&admin_confirm_passwd={{ password | urlencode }}&admin_email={{ "admin@gogs.com" | urlencode }}"
+       body="db_type={{ "PostgreSQL" | urlencode }}&db_host={{ gogs_database_ip.stdout | urlencode }}%3A{{ gogs_database_port.stdout }}&db_user={{ gogs_database_username.stdout }}&db_passwd={{ gogs_database_password.stdout }}&db_name={{ gogs_database_name.stdout | urlencode }}&ssl_mode=disable&db_path=data%2Fgogs.db&app_name={{ "Gogs Go Git Service" | urlencode }}&repo_root_path={{ "/home/gogs/gogs-repositories" | urlencode }}&run_user=gogs&domain=localhost&ssh_port=22&http_port=80&app_url={{ gogs_address | urlencode }}&log_root_path=%2Fopt%2Fgogs%2Flog&admin_name={{ username | urlencode }}&admin_passwd={{ password | urlencode }}&admin_confirm_passwd={{ password | urlencode }}&admin_email={{ "admin@gogs.com" | urlencode }}"
   register: result_install
   failed_when: result_install.status != 302
   tags: 
@@ -124,7 +124,7 @@
 - name: Import into BRMS Content
   uri: method=POST body_format=json url={{ gogs_url }}/api/v1/repos/migrate
        user={{ username }} password={{ password }} force_basic_auth=yes
-       body="{\"clone_addr\"{{ ":" }}\"https{{ ":" }}//github.com/pstlatam/rhforum2016brms.git\",\"uid\"{{ ":" }} 1,\"repo_name\"{{ ":" }} \"brms\"}"
+       body="{\"clone_addr\"{{ ":" }}\"https{{ ":" }}//github.com/felipetux/rhforum2016brms.git\",\"uid\"{{ ":" }} 1,\"repo_name\"{{ ":" }} \"brms\"}"
   register: json_result
   failed_when: 
          - json_result.status != 201
@@ -137,7 +137,7 @@
 - name: Import into Forum Content
   uri: method=POST body_format=json url={{ gogs_url }}/api/v1/repos/migrate
        user={{ username }} password={{ password }} force_basic_auth=yes
-       body="{\"clone_addr\"{{ ":" }}\"https{{ ":" }}//github.com/pstlatam/rhforum2016.git\",\"uid\"{{ ":" }} 1,\"repo_name\"{{ ":" }} \"forum\"}"
+       body="{\"clone_addr\"{{ ":" }}\"https{{ ":" }}//github.com/felipetux/rhforum2016.git\",\"uid\"{{ ":" }} 1,\"repo_name\"{{ ":" }} \"forum\"}"
   register: json_result
   failed_when: 
          - json_result.status != 201
@@ -169,7 +169,7 @@
      - config_tooling
 
 - name: Define the address to reach Nexus. Hardcoded Username{{ ':' }}admin, Password{{ ':' }}admin123
-  set_fact: nexus_url="http{{ ':' }}//admin:admin123@nexus.{{ tooling_namespace }}.cloudapps.example.com{{ ':' }}{{ nexus_port.stdout }}"
+  set_fact: nexus_url="http{{ ':' }}//admin:admin123@nexus.cloudapps.example.com{{ ':' }}80"
   tags:
      - tooling
      - toolingnexus
@@ -235,7 +235,7 @@
 
 - name: Adding a Repo Groups into Nexus {{ '#' }}6
   uri: method=POST HEADER_Content-type="application/xml" url="{{ nexus_url }}/service/local/repo_groups" status_code=201
-       body="<repo-group><data><id>forum</id><name>forum</name><provider>maven2</provider><format>maven2</format><repoType>group</repoType><exposed>true</exposed><providerRole>org.sonatype.nexus.proxy.repository.GroupRepository</providerRole><repositories><repo-group-member><id>central</id><name>Central</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/central</resourceURI></repo-group-member><repo-group-member><id>FuseSourceEA</id><name>FuseSourceEA</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/FuseSourceEA</resourceURI></repo-group-member><repo-group-member><id>FuseSourceReleases</id><name>FuseSourceReleases</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/FuseSourceReleases</resourceURI></repo-group-member><repo-group-member><id>public</id><name>PublicRepositories</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/public</resourceURI></repo-group-member><repo-group-member><id>RedHatEA</id><name>RedHatEA</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/RedHatEA</resourceURI></repo-group-member><repo-group-member><id>RedHatGA</id><name>RedHatGA</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/RedHatGA</resourceURI></repo-group-member><repo-group-member><id>RedHatTP</id><name>RedHatTP</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/RedHatTP</resourceURI></repo-group-member><repo-group-member><id>releases</id><name>Releases</name><resourceURI>http{{ ':' }}//nexus.tooling.cloudapps.example.com{{ ':' }}8081/service/local/repo_groups/forum/releases</resourceURI></repo-group-member></repositories></data></repo-group>"
+       body="<repo-group><data><id>forum</id><name>forum</name><provider>maven2</provider><format>maven2</format><repoType>group</repoType><exposed>true</exposed><providerRole>org.sonatype.nexus.proxy.repository.GroupRepository</providerRole><repositories><repo-group-member><id>central</id><name>Central</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/central</resourceURI></repo-group-member><repo-group-member><id>FuseSourceEA</id><name>FuseSourceEA</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/FuseSourceEA</resourceURI></repo-group-member><repo-group-member><id>FuseSourceReleases</id><name>FuseSourceReleases</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/FuseSourceReleases</resourceURI></repo-group-member><repo-group-member><id>public</id><name>PublicRepositories</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/public</resourceURI></repo-group-member><repo-group-member><id>RedHatEA</id><name>RedHatEA</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/RedHatEA</resourceURI></repo-group-member><repo-group-member><id>RedHatGA</id><name>RedHatGA</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/RedHatGA</resourceURI></repo-group-member><repo-group-member><id>RedHatTP</id><name>RedHatTP</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/RedHatTP</resourceURI></repo-group-member><repo-group-member><id>releases</id><name>Releases</name><resourceURI>http{{ ':' }}//nexus.cloudapps.example.com/service/local/repo_groups/forum/releases</resourceURI></repo-group-member></repositories></data></repo-group>"
   tags:
      - tooling
      - toolingnexus
